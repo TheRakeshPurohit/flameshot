@@ -153,6 +153,14 @@ A systray icon will be in your system's panel while Flameshot is running.
 Do a right click on the tray icon and you'll see some menu items to open the configuration window and the information window.
 Check out the About window to see all available shortcuts in the graphical capture mode.
 
+### Usage on Windows
+
+On Windows, `flameshot.exe` will behave as expected for all supported command-line arguments, 
+but it will not output any text to the console. This is problematic if, for example, you are 
+running `flameshot.exe -h`.
+
+If you require console output, run `flameshot-cli.exe` instead. `flameshot-cli.exe` is a minimal wrapper around `flameshot.exe` that ensures all stdout is captured and output to the console.
+
 ### CLI configuration
 
 You can use the graphical menu to configure Flameshot, but alternatively you can use your terminal or scripts to do so.
@@ -401,7 +409,7 @@ Also you can open and build/debug the project in a C++ IDE. For example, in Qt C
 
 #### Compile-time
 
-- Qt >= 5.9
+- Qt >= 6.0
   + Development tools
 - GCC >= 7.4
 - CMake >= 3.29
@@ -416,44 +424,45 @@ Also you can open and build/debug the project in a C++ IDE. For example, in Qt C
 - Git
 - OpenSSL
 - CA Certificates
+- Qt Image Formats - for additional export image formats (e.g. tiff, webp, and more)
 
 #### Debian
 
 ```shell
 # Compile-time
-apt install g++ cmake build-essential qtbase5-dev qttools5-dev-tools libqt5svg5-dev qttools5-dev
+apt install g++ cmake build-essential qt6-base-dev qt6-tools-dev-tools qt6-svg-dev qt6-tools-dev
 
 # Run-time
-apt install libqt5dbus5 libqt5network5 libqt5core5a libqt5widgets5 libqt5gui5 libqt5svg5
+apt install libqt6dbus6 libqt6network6 libqt6core6 libqt6widgets6 libqt6gui6 libqt6svg6 qt6-qpa-plugins
 
 # Optional
-apt install git openssl ca-certificates
+apt install git openssl ca-certificates qt6-image-formats-plugins
 ```
 
 #### Fedora
 
 ```shell
 # Compile-time
-dnf install gcc-c++ cmake qt5-qtbase-devel qt5-linguist
+dnf install gcc-c++ cmake qt6-qtbase-devel qt6-qtsvg-devel qt6-qttools qt6-linguist qt6-qttools-devel kf6-kguiaddons-devel
 
 # Run-time
-dnf install qt5-qtbase qt5-qtsvg-devel
+dnf install qt6-qtbase qt6-qtsvg kf6-kguiaddons
 
 # Optional
-dnf install git openssl ca-certificates
+dnf install git openssl ca-certificates qt6-qtimageformats
 ```
 
 #### Arch
 
 ```shell
 # Compile-time
-pacman -S cmake base-devel git qt5-base qt5-tools
+pacman -S cmake base-devel git qt6-base qt6-tools kguiaddons
 
 # Run-time
-pacman -S qt5-svg
+pacman -S qt6-svg
 
 # Optional
-pacman -S openssl ca-certificates
+pacman -S openssl ca-certificates qt6-imageformats
 ```
 
 #### NixOS
@@ -466,7 +475,7 @@ nix-shell
 
 First of all you need to install [brew](https://brew.sh) and then install the dependencies
 ```shell
-brew install qt5
+brew install qt6
 brew install cmake
 ```
 
@@ -495,7 +504,7 @@ cmake -S . -B "$BUILD_DIR" \
 
 #MacOS
 cmake -S . -B "$BUILD_DIR" \
-    -DQt5_DIR="$(brew --prefix qt5)/lib/cmake/Qt5" \
+    -DQt6_DIR="$(brew --prefix qt6)/lib/cmake/Qt6" \
     && cmake --build "$BUILD_DIR"
 ```
 
